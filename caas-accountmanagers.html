@@ -50,7 +50,7 @@ Polymer accountmanagers Element for Crowdfunding as a Service Solutions
         },
 
         /**
-        * True while getting all incentives
+        * True while getting all accountmanagers
         */
         loadingAccountmanagers: {
           type: Boolean,
@@ -59,11 +59,17 @@ Polymer accountmanagers Element for Crowdfunding as a Service Solutions
         },
 
         /**
-        * Determines whether the incentives should be downloaded automatically
+        * Determines whether the accountmanagers should be downloaded automatically
         */
         autoDownload: {
           type: Boolean,
           value: false
+        },
+
+        accountManagers: {
+          type: Array,
+          notify: true,
+          computed: '_computeAccountManagers(_apiData.*)'
         },
 
         _requestHeaders: {
@@ -78,16 +84,16 @@ Polymer accountmanagers Element for Crowdfunding as a Service Solutions
       },
 
       /*
-      * Download All Incentives
+      * Download All accountmanagers
       */
       getItems: function() {
         this.$.getItems.generateRequest();
       },
 
-      _computeaccountmanagers: function(apiDataChange) {
+      _computeAccountManagers: function(apiDataChange) {
         var apiData = apiDataChange.base;
         if(!apiData) return;
-        return apiData.map(this._parseApiDataItemToAccountmanager)
+        return apiData.map(this._parseApiDataItemToAccountManager)
       },
 
 
@@ -97,10 +103,14 @@ Polymer accountmanagers Element for Crowdfunding as a Service Solutions
         }
       },
 
-      _parseApiDataItemToAccountmanager: function(apiDataItem) {
+      _parseApiDataItemToAccountManager: function(apiDataItem) {
         return {
           id: apiDataItem.id,
-          email: apiDataItem.email
+          email: apiDataItem.email,
+          firstName: apiDataItem.firstName,
+          lastName: apiDataItem.lastName,
+          shortBio: apiDataItem.shortBio,
+          avatarURL: apiDataItem.avatarURL
         }
       }
 
