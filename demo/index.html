@@ -46,16 +46,11 @@
           ></caas-auth>
 
           <caas-accountmanagers
-            id="accountmanagers"
+            id="accountManagerAPI"
             auto-download="[[signedIn]]"
             api-endpoint="https://192.168.178.36/api"
             access-token="[[accessToken]]"
-            limit="[[limit]]"
-            direction="[[direction]]"
-            search-query="[[searchQuery]]"
-            order-by="[[orderBy]]"
-            account-manager="[[accountManager]]"
-            accountmanagers="{{accountmanagers}}"
+            account-managers="{{accountManagers}}"
             loading-accountmanagers="{{loadingaccountmanagers}}"
             log>
           </caas-accountmanagers>
@@ -85,46 +80,13 @@
             <h2>accountmanagers</h2>
             <div class="accountmanager-list">
 
-                <article class="">
-
-                    <label for="searchQuery">searchQuery</label>
-                    <input type="text" id="searchQuery" value="{{searchQuery::change}}"><br><br>
-
-                    <label for="limit">limit</label>
-                    <input type="text" id="limit" value="{{limit::change}}"><br><br>
-
-                    <label for="orderBy">orderBy</label>
-                    <select name="orderBy" value="{{orderBy::change}}">
-                      <option value="datum" selected>Aanmelding</option>
-                      <option value="aanmeldnaam">Naam</option>
-                      <option value="projectnaam">ProjectNaam</option>
-                      <option value="score">score</option>
-                      <option value="">geen</option>
-                    </select>
-
-                    <label for="accountManager">accountManager</label>
-                    <select name="accountManager" value="{{accountManager::change}}">
-                      <option value="kim" selected>kim</option>
-                      <option value="loes">loes</option>
-                      <option value="mark">mark</option>
-                      <option value="">geen</option>
-                    </select>
-
-                    <label for="direction">Sort direction</label>
-                    <select name="direction" value="{{direction::change}}">
-                      <option value="DESC" selected>Descending</option>
-                      <option value="ASC">Ascending</option>
-                    </select>
-
-                </article>
-
                 <iron-list
-                    items="{{accountmanagers}}"
-                    as="accountmanager">
+                    items="[[accountManagers]]"
+                    as="accountManager">
 
                     <template>
                         <div class="item">
-                            Accountmanager: [[accountmanager.id]] - [[accountmanager.emailAddress]]
+                            [[accountManager.firstName]] - [[accountManager.email]]
                         </div>
                     </template>
 
@@ -137,7 +99,7 @@
 
           <script>
             var demo = document.querySelector('#demo');
-            var accountmanagers = document.querySelector('#accountmanagers');
+            // var accountManagers = document.querySelector('#accountmanagers');
 
             demo.signIn = function(evt) {
               evt.preventDefault();
