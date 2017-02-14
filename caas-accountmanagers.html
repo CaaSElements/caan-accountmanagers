@@ -99,7 +99,8 @@ Polymer accountmanagers Element for Crowdfunding as a Service Solutions
         var _self = this;
         var apiData = apiDataChange.base;
         if(!apiData) return;
-        return apiData.map(this._parseApiDataItemToAccountManager, _self);
+        return apiData.filter(this._checkIfAccountManagerIsActive, _self)
+            .map(this._parseApiDataItemToAccountManager, _self);
       },
 
 
@@ -110,7 +111,6 @@ Polymer accountmanagers Element for Crowdfunding as a Service Solutions
       },
 
       _parseApiDataItemToAccountManager: function(apiDataItem) {
-        if(this.active && !this._checkIfAccountManagerIsActive(apiDataItem)) return;
         return {
           id: apiDataItem.id,
           email: apiDataItem.email,
@@ -122,6 +122,7 @@ Polymer accountmanagers Element for Crowdfunding as a Service Solutions
       },
 
       _checkIfAccountManagerIsActive: function(apiDataItem) {
+        if(!this.active) return true;
         if(apiDataItem.email == "mark@crowdaboutnow.com") return true;
         if(apiDataItem.email == "loes@crowdaboutnow.com") return true;
         if(apiDataItem.email == "kim@crowdaboutnow.com") return true;
